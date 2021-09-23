@@ -72,13 +72,6 @@ export default class Board {
    * @return {Hole|null}
    */
   findBestMove(player) {
-    // HACK: if we're cloning deeper than 10 levels, just give up because there's a bug probably
-    // if (this.cloneDepth > 10) {
-    //   // return this.holes[0];
-    //   return this.holes.filter(h => h.pieces > 0)[0];
-    // }
-
-    // console.log(`Clone depth: ${this.cloneDepth}`);
     let highestScore = this.getScore(player);
     let holeChoice = null;
     // calculate points made by selecting each hole
@@ -87,19 +80,15 @@ export default class Board {
       .forEach(hole => {
         const b = this.clone();
         const h = b.holes[this.getHoleIndex(hole)];
-        // console.log(`${this.cloneDepth} -> ${b.getHoleIndex(h)}`);
 
         b.movePieces(h, player);
-        // b.print();
 
         let score = b.getScore(player);
         if (score >= highestScore) {
           highestScore = score;
           holeChoice = hole;
-          // console.log(`Score: ${highestScore}`);
         }
       });
-    // console.log("highestScore:", highestScore);
 
     return holeChoice;
   }
@@ -137,16 +126,10 @@ export default class Board {
           && hole.type === "home"
           && this.holes.find(h => h.owner === player && h.type === "regular" && h.pieces)
         ) {
-          const bestHole = this.findBestMove(player);
-          // if (bestHole) {
-          //   this.movePieces(bestHole, player);
-          // }
+          this.findBestMove(player);
         }
         // move pieces again if we caused an avalanche
         else if (hole.pieces > 1 && hole.type !== "home") {
-          // if (hole.type === "home") {
-          //   throw new Error("avalanched on home")
-          // }
           this.movePieces(hole, player);
         }
       }
