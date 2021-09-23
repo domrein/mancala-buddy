@@ -173,36 +173,35 @@ describe("Board", function () {
       const board = new Board();
       board.populate([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
       const move = board.findBestMove("player1");
-      assert.strictEqual(move, "player1 regular 0");
+      assert.strictEqual(move, board.holes[0]);
     });
 
     it("should identify highest scoring move available on board with avalanche", function() {
       const board = new Board();
       board.populate([1, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
       const move = board.findBestMove("player1");
-      assert.strictEqual(move, "player1 regular 1");
+      assert.strictEqual(move, board.holes[1]);
     });
 
     it("should identify highest scoring move available on board with free turn", function() {
       const board = new Board();
       board.populate([0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]);
       const move = board.findBestMove("player1");
-      assert.strictEqual(move, "player1 regular 5");
+      assert.strictEqual(move, board.holes[5]);
     });
 
     it("should identify highest scoring move available on board with multiple free turns", function() {
       const board = new Board();
-      // board.populate([6, 5, 4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0]);
       board.populate([0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0]);
       const move = board.findBestMove("player1");
-      assert.strictEqual(move, "player1 regular 5");
+      assert.strictEqual(move, board.holes[5]);
     });
 
     it("should identify highest scoring move available on board with free turn", function() {
       const board = new Board();
       board.populate([4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]);
       const move = board.findBestMove("player1");
-      // assert.strictEqual(move, "player1 regular 5");
+      assert.strictEqual(move, board.holes[3]);
     });
   });
 });
