@@ -11,7 +11,6 @@ export default class Board {
         const hole = new Hole();
         hole.type = j + 1 === 7 ? "home" : "regular";
         hole.owner = !i ? "player1" : "player2";
-        hole.index = j;
 
         this.holes.push(hole);
       }
